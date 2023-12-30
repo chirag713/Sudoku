@@ -1,0 +1,103 @@
+body {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+hr {
+    width: 500px;
+}
+
+#errors {
+    color: coral;
+}
+
+#board {
+    width: 450px;
+    height: 450px;
+
+    /* background-color: yellow; */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tile {
+    width: 48px;
+    height: 48px;
+    border: 1px solid lightgray;
+
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#digits {
+    width: 450px;
+    height: 50px;
+
+    /* background-color: yellow; */
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.number{
+    width: 44px;
+    height: 44px;
+    border: 1px solid black; 
+    margin: 2px;
+
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.numberselected{
+    background-color:grey ;
+}
+
+.tilestart{
+    background-color: whitesmoke;
+}
+
+.horizontal{
+    border-bottom: 1px solid black;
+}
+.vertical{
+    border-right: 1px solid black;
+}
+
+.level{
+    background-color: #ADD8E6;
+    color:#492601;
+}
+
+.complete{
+    background: linear-gradient(to right, #FFFFFF, #C0C0C0);
+}
+.chirag{
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+#easy,#medium,#hard{
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
