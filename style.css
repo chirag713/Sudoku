@@ -57,6 +57,11 @@ hr {
     align-items: center;
 }
 
+.blank{
+    width: 50px;
+    height: 50px;
+}
+
 .numberselected{
     background-color:grey ;
 }
@@ -80,6 +85,9 @@ hr {
 .complete{
     background: linear-gradient(to right, #FFFFFF, #C0C0C0);
 }
+
+
+
 .chirag{
     display: flex;
     flex-wrap: wrap;

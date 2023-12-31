@@ -5,35 +5,38 @@ var easy = document.getElementById("easy");
 var medium = document.getElementById("medium");
 var hard = document.getElementById("hard");
 
-var type = null;
-var num = null;
+var type = 0;
+var num = 0;
+
+
+var count = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 
 var errors = 0;
 
 // [
-//     "8-7--4--9",
-//     "1-98-23-7",
-//     "-35--74-6",
-//     "6-478-93-",
-//     "9-3--1-7-",
-//     "78---314-",
-//     "-714-98-3",
-//     "42-376-91",
-//     "39-1-87-4"
+    "-1-2-5--8",
+    "-2498---5",
+    "-587-1-2-",
+    "6-53-2-81",
+    "2-71--3-9",
+    "--15-826-",
+    "--26-78--",
+    "8---1-5-2",
+    "--9-23-1-"
 // ]
 
 
 // [
-// "867534219",
-// "149862357",
-// "235917486",
-// "614785932",
-// "953241678",
-// "782693145",
-// "571429863",
-// "428376591",
-// "369158724"
+    "916235748",
+    "724986135",
+    "358741926",
+    "685372481",
+    "287164359",
+    "431598267",
+    "142657893",
+    "863419572",
+    "579823614"
 // ]
 
 
@@ -99,6 +102,28 @@ var options = [
             "67-83----",
             "81--45---"
         ],
+        [
+            "8--26---4",
+            "-1--83-62",
+            "26-74-1--",
+            "--6-7821-",
+            "--4-32-8-",
+            "-2---9--7",
+            "74--16-2-",
+            "-3-8-4-71",
+            "--1-27--6"
+        ],
+        [
+            "-1-2-5--8",
+            "-2498---5",
+            "-587-1-2-",
+            "6-53-2-81",
+            "2-71--3-9",
+            "--15-826-",
+            "--26-78--",
+            "8---1-5-2",
+            "--9-23-1-"
+        ]
 
     ],
 
@@ -170,6 +195,28 @@ var optionssol = [
             "675832941",
             "812945763"
         ],
+        [
+            "897261354",
+            "415983762",
+            "263745198",
+            "356278219",
+            "974132685",
+            "128659437",
+            "749516823",
+            "632894571",
+            "581327946"
+        ],
+        [
+            "916235748",
+            "724986135",
+            "358741926",
+            "685372481",
+            "287164359",
+            "431598267",
+            "142657893",
+            "863419572",
+            "579823614"
+        ]
 
     ],
 
@@ -180,30 +227,9 @@ var optionssol = [
 
 
 
-var board = [
-    "--74916-5",
-    "2---6-3-9",
-    "-----7-1-",
-    "-586----4",
-    "--3----9-",
-    "--62--187",
-    "9-4-7---2",
-    "67-83----",
-    "81--45---"
-]
+var board = options[0][0];
 
-var solution = [
-    "387491625",
-    "241568379",
-    "569327418",
-    "758619234",
-    "123784596",
-    "496253187",
-    "934176852",
-    "675832941",
-    "812945763"
-]
-
+var solution = optionssol[0][0];
 
 for (let i = 1; i <= options[0].length; i++) {
     let tile = document.createElement("div");
@@ -259,14 +285,8 @@ window.onload = function () {
 }
 
 function setgame() {
-    for (var i = 1; i <= 9; i++) {
-        let number = document.createElement("div");
-        number.id = i;
-        number.innerText = i;
-        number.classList.add("number");
-        number.addEventListener("click", selectnumber);
-        document.getElementById("digits").appendChild(number);
-    }
+    count = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 
     for (let i = 0; i < 9; i++) {
         for (let t = 0; t < 9; t++) {
@@ -275,6 +295,7 @@ function setgame() {
             tile.addEventListener("click", selecttile);
             if (board[i][t] != '-') {
                 tile.innerText = board[i][t];
+                count[parseInt(board[i][t]) - 1]++;
                 tile.classList.add("tilestart");
             }
             if (i == 2 || i == 5) {
@@ -286,6 +307,20 @@ function setgame() {
             tile.classList.add("tile");
             document.getElementById("board").appendChild(tile);
         }
+    }
+
+    for (var i = 1; i <= 9; i++) {
+        let number = document.createElement("div");
+        number.id = i;
+
+        if (count[i - 1] != 9) {
+            number.classList.add("number");
+            number.innerText = i;
+            number.addEventListener("click", selectnumber);
+        }
+        else number.classList.add("blank");
+
+        document.getElementById("digits").appendChild(number);
     }
 }
 
@@ -306,6 +341,8 @@ function selecttile() {
         let c = parseInt(coord[1]);
         if (solution[r][c] == numselected.id) {
             this.innerText = numselected.id;
+            count[numselected.id - 1]++;
+
             let originalstring = board[r];
             let newstring = "";
             for (let i = 0; i < 9; i++) {
@@ -316,6 +353,15 @@ function selecttile() {
 
             }
             options[type][num - 1][r] = newstring;
+            if (count[numselected.id - 1] == 9) {
+                let xyz = document.getElementById(numselected.id);
+                xyz.classList.remove("number");
+                xyz.classList.remove("numberselected");
+                xyz.innerText = "";
+                xyz.classList.add("blank");
+                xyz.removeEventListener("click", selectnumber);
+                numselected = null;
+            }
 
             if (checkcomplete()) {
                 document.getElementById(type.toString() + "--" + (num).toString()).classList.add("complete");
